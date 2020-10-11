@@ -1,0 +1,12 @@
+{
+    "id": "hypernet",
+    "name": "Hyperspace Network",
+    "version": "1.0.0",
+    "author": "Jaghaimo",
+    "description": "Information services for Starsector",
+    "gameVersion": "0.9.1a",
+    "modPlugin": "hypernet.HypernetMod",
+    "jars": [
+        "hypernet.jar"
+    ]
+}

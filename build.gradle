@@ -10,6 +10,13 @@ sourceSets.test.java.srcDir 'src/test'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+// fetch dependencies for the project
+task fetchDeps(type: Exec) {
+    description 'Fetch and install dependsOn before compilation.'
+    commandLine 'bash', 'util/fetch-deps.sh'
+}
+compileJava.dependsOn fetchDeps
+
 // build everything and make a jar
 build {
     doLast {
@@ -18,6 +25,12 @@ build {
             into '.'
         }
     }
+}
+
+// create a zip release
+task release(type: Exec) {
+    description 'Create releaseable zip file.'
+    commandLine 'sh', 'util/create-release.sh'
 }
 
 // nuke everything and start over

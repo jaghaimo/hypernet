@@ -1,0 +1,10 @@
+{
+    "graphics": {
+        "illustrations": {
+            "hypernet": "graphics/illustrations/comm_relay.jpg"
+        },
+        "hypernet": {
+            "board": "graphics/icons/intel/investigation.png"
+        }
+    }
+}
