@@ -1,9 +1,11 @@
 package hypernet;
 
+import java.awt.Color;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -25,11 +27,13 @@ public class HypernetIntel extends BaseIntelPlugin {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
+        Color bulletColor = getBulletColorForMode(mode);
         info.addPara(intelSubject.getIntelTitle(), getTitleColor(mode), 0f);
-        bullet(info);
-        info.addPara(intelSubject.getIntelInfo(), 3f, getBulletColorForMode(mode), Misc.getHighlightColor(),
-                sectorEntityToken.getName(), intelSubject.getStarSystemName(""));
-        unindent(info);
+        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
+        info.addToGrid(0, 0, sectorEntityToken.getName(), "Location", bulletColor);
+        info.addToGrid(0, 1, getFactionForUIColors().getDisplayName(), "Faction", bulletColor);
+        info.addToGrid(0, 2, getStarSystemName(), "System", bulletColor);
+        info.addGrid(3f);
     }
 
     @Override
@@ -64,11 +68,25 @@ public class HypernetIntel extends BaseIntelPlugin {
     }
 
     @Override
+    public String getSortString() {
+        return getDistanceToPlayerLY("%07.2f");
+    }
+
+    @Override
     public boolean isNew() {
         return false;
     }
 
-    public String getKey() {
-        return intelSubject.getKey();
+    private String getDistanceToPlayerLY(String format) {
+        float distanceToPlayerLY = Misc.getDistanceToPlayerLY(sectorEntityToken);
+        return String.format(format, distanceToPlayerLY);
+    }
+
+    private String getStarSystemName() {
+        StarSystemAPI system = sectorEntityToken.getStarSystem();
+        if (system == null) {
+            return "In Hyperspace";
+        }
+        return system.getName();
     }
 }
