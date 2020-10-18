@@ -13,8 +13,8 @@ public class MutableFilterManager implements FilterManager {
     private DialogOption cargoWingType = DialogOption.WING_TYPE_ANY;
 
     private DialogOption fleetShipSize = DialogOption.SHIP_SIZE_FRIGATE;
-    private DialogOption fleetShipDamaged = DialogOption.SHIP_DAMAGED_YES;
-    private DialogOption fleetShipCarrier = DialogOption.SHIP_CARRIER_YES;
+    private DialogOption fleetShipDamaged = DialogOption.SHIP_DAMAGED_NO;
+    private DialogOption fleetShipCarrier = DialogOption.SHIP_CARRIER_NO;
     private DialogOption fleetShipCivilian = DialogOption.SHIP_CIVILIAN_NO;
 
     private DialogOption staffType = DialogOption.STAFF_OFFICER;
