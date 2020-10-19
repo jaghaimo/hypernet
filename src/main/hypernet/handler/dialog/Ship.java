@@ -88,6 +88,7 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
             String baseHullId = ship.getHullSpec().getBaseHullId();
             FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, baseHullId + "_Hull");
             member.setVariant(ship.getVariant(), false, false);
+            member.getRepairTracker().setCR(0.7f);
             fleetMap.put(hullId, member);
         }
     }
