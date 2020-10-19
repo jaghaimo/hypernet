@@ -1,2 +1,9 @@
+* Mon Oct 19 2020 - 1.1.0
+- Distinguish between variants and d-modded huls in ship query
+- Change default ship filters to no damaged and no carriers
+- Sort intel based on distance to player
+- Change intel info to be more useful
+- Show correct ship stats in the picker (CR 70%)
+
 * Tue Oct 13 2020 - 1.0.0
 - Initial release with staff, cargo, and ship queries
