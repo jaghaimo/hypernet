@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fs.starfarer.api.FactoryAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FleetMemberPickerListener;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -83,12 +84,12 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
     }
 
     private void addAllShipHulls(Map<String, FleetMemberAPI> fleetMap, List<FleetMemberAPI> shipList) {
+        FactoryAPI factory = Global.getFactory();
         for (FleetMemberAPI ship : shipList) {
             String hullId = ship.getHullId();
             String baseHullId = ship.getHullSpec().getBaseHullId();
-            FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, baseHullId + "_Hull");
+            FleetMemberAPI member = factory.createFleetMember(FleetMemberType.SHIP, baseHullId + "_Hull");
             member.setVariant(ship.getVariant(), false, false);
-            member.getRepairTracker().setCR(0.7f);
             fleetMap.put(hullId, member);
         }
     }
