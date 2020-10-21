@@ -1,3 +1,6 @@
+* unreleased - 1.2.0
+- Add merging CSV support to blacklist markets
+
 * Mon Oct 19 2020 - 1.1.0
 - Distinguish between variants and d-modded hulls in ship query
 - Change default ship filters to no damaged and no carriers
