@@ -1,6 +1,7 @@
 * Thu Oct 22 2020 - 1.2.0
 - Add merging CSV support to blacklist markets
 - Fix intel refresh not updating content of submarkets
+- Skip markets that are disabled
 
 * Mon Oct 19 2020 - 1.1.0
 - Distinguish between variants and d-modded hulls in ship query

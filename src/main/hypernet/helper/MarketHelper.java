@@ -18,6 +18,7 @@ import hypernet.filter.MarketNotHidden;
 import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasCargoStack;
 import hypernet.filter.SubmarketHasFleetMember;
+import hypernet.filter.SubmarketIsAccessible;
 
 public class MarketHelper {
 
@@ -68,6 +69,7 @@ public class MarketHelper {
             updateCargoPrePlayerInteraction(marketSubmarkets);
             submarkets.addAll(marketSubmarkets);
         }
+        CollectionHelper.reduce(submarkets, new SubmarketIsAccessible());
         return submarkets;
     }
 
