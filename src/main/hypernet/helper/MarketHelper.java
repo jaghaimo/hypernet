@@ -64,14 +64,22 @@ public class MarketHelper {
     public static List<SubmarketAPI> getSubmarkets(List<MarketAPI> markets) {
         List<SubmarketAPI> submarkets = new ArrayList<>();
         for (MarketAPI market : markets) {
-            submarkets.addAll(market.getSubmarketsCopy());
+            List<SubmarketAPI> marketSubmarkets = market.getSubmarketsCopy();
+            updateCargoPrePlayerInteraction(marketSubmarkets);
+            submarkets.addAll(marketSubmarkets);
         }
         return submarkets;
     }
 
-    public static void updateCargoPrePlayerInteraction(SubmarketAPI s) {
+    private static void updateCargoPrePlayerInteraction(List<SubmarketAPI> submarkets) {
+        for (SubmarketAPI submarket : submarkets) {
+            updateCargoPrePlayerInteraction(submarket);
+        }
+    }
+
+    private static void updateCargoPrePlayerInteraction(SubmarketAPI submarket) {
         try {
-            ((BaseSubmarketPlugin) s.getPlugin()).updateCargoPrePlayerInteraction();
+            ((BaseSubmarketPlugin) submarket.getPlugin()).updateCargoPrePlayerInteraction();
         } catch (Exception exception) {
         }
     }

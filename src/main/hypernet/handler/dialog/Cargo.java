@@ -10,12 +10,12 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import hypernet.DialogOption;
+import hypernet.DialogPlugin;
 import hypernet.filter.CargoStackFilter;
 import hypernet.filter.MutableFilterManager;
 import hypernet.helper.CollectionHelper;
 import hypernet.helper.MarketHelper;
-import hypernet.DialogOption;
-import hypernet.DialogPlugin;
 
 public class Cargo extends FilterAware implements CargoPickerListener {
 
@@ -76,7 +76,6 @@ public class Cargo extends FilterAware implements CargoPickerListener {
         List<CargoStackAPI> cargoStacks = new ArrayList<CargoStackAPI>();
 
         for (SubmarketAPI s : submarkets) {
-            MarketHelper.updateCargoPrePlayerInteraction(s);
             List<CargoStackAPI> submarketStacks = s.getCargo().getStacksCopy();
             CollectionHelper.reduce(submarketStacks, cargoStackFilters);
             cargoStacks.addAll(submarketStacks);

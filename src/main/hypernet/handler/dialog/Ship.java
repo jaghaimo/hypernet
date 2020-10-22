@@ -71,7 +71,6 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
         Map<String, FleetMemberAPI> fleetMap = new HashMap<>();
 
         for (SubmarketAPI s : submarkets) {
-            MarketHelper.updateCargoPrePlayerInteraction(s);
             List<FleetMemberAPI> submarketShips = s.getCargo().getMothballedShips().getMembersListCopy();
             CollectionHelper.reduce(submarketShips, fleetMemberFilters);
             addAllShipHulls(fleetMap, submarketShips);
