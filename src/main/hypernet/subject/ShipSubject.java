@@ -16,6 +16,11 @@ public class ShipSubject extends IntelSubject {
     }
 
     @Override
+    public boolean canAcquire() {
+        return MarketHelper.canAcquire(market, ship);
+    }
+
+    @Override
     public String getIcon() {
         return ship.getHullSpec().getSpriteName();
     }

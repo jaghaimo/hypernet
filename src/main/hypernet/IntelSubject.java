@@ -25,6 +25,10 @@ public abstract class IntelSubject {
         return Misc.ucFirst(entity);
     }
 
+    public String getIntelDesc() {
+        return entity + "s";
+    }
+
     public boolean isAvailable() {
         return market != null;
     }

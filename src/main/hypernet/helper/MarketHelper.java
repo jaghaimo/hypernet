@@ -15,12 +15,30 @@ import hypernet.filter.MarketFilter;
 import hypernet.filter.MarketHasAdministrator;
 import hypernet.filter.MarketHasOfficer;
 import hypernet.filter.MarketNotHidden;
+import hypernet.filter.SubmarketCanAcquireCargoStack;
+import hypernet.filter.SubmarketCanAcquireFleetMember;
 import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasCargoStack;
 import hypernet.filter.SubmarketHasFleetMember;
 import hypernet.filter.SubmarketIsAccessible;
 
 public class MarketHelper {
+
+    public static boolean canAcquire(MarketAPI market, CargoStackAPI cargoStack) {
+        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasCargoStack(cargoStack),
+                new SubmarketIsAccessible(), new SubmarketCanAcquireCargoStack(cargoStack));
+        List<SubmarketAPI> submarkets = getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
+    }
+
+    public static boolean canAcquire(MarketAPI market, FleetMemberAPI fleetMember) {
+        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasFleetMember(fleetMember),
+                new SubmarketIsAccessible(), new SubmarketCanAcquireFleetMember(fleetMember));
+        List<SubmarketAPI> submarkets = getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
+    }
 
     public static boolean has(MarketAPI market, CargoStackAPI cargoStack) {
         SubmarketFilter filter = new SubmarketHasCargoStack(cargoStack);
@@ -69,7 +87,6 @@ public class MarketHelper {
             updateCargoPrePlayerInteraction(marketSubmarkets);
             submarkets.addAll(marketSubmarkets);
         }
-        CollectionHelper.reduce(submarkets, new SubmarketIsAccessible());
         return submarkets;
     }
 

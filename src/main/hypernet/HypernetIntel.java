@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
+import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -31,13 +32,30 @@ public class HypernetIntel extends BaseIntelPlugin {
         info.addPara(intelSubject.getIntelTitle(), getTitleColor(mode), 0f);
         info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
         info.addToGrid(0, 0, sectorEntityToken.getName(), "Location", bulletColor);
-        info.addToGrid(0, 1, getFactionForUIColors().getDisplayName(), "Faction", bulletColor);
+        info.addToGrid(0, 1, faction.getDisplayName(), "Faction", bulletColor);
         info.addToGrid(0, 2, getStarSystemName(), "System", bulletColor);
         info.addGrid(3f);
     }
 
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
+        String marketName = sectorEntityToken.getName();
+        info.addSectionHeading(marketName, faction.getBaseUIColor(), faction.getDarkUIColor(), Alignment.MID, 5f);
+        info.addImage(faction.getLogo(), width, 128, 10f);
+
+        String message;
+        String subject;
+        if (!intelSubject.isAvailable()) {
+            subject = intelSubject.getIntelDesc();
+            message = "There are no more %s left on %s.";
+        } else if (!intelSubject.canAcquire()) {
+            subject = intelSubject.getIntelDesc();
+            message = "You do not meet the requirements to purchase %s on %s.";
+        } else {
+            subject = intelSubject.getIntelTitle();
+            message = "%s can be found on %s.";
+        }
+        info.addPara(message, 10f, Misc.getHighlightColor(), subject, marketName);
     }
 
     @Override
@@ -83,10 +101,10 @@ public class HypernetIntel extends BaseIntelPlugin {
 
     private void endIfInvalid() {
         if (!intelSubject.isAvailable()) {
-            endAfterDelay();
+            ending = true;
         }
         if (!intelSubject.canAcquire()) {
-            endAfterDelay();
+            ending = true;
         }
     }
 

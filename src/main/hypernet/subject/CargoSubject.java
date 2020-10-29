@@ -16,6 +16,11 @@ public class CargoSubject extends IntelSubject {
     }
 
     @Override
+    public boolean canAcquire() {
+        return MarketHelper.canAcquire(market, cargoStack);
+    }
+
+    @Override
     public String getIcon() {
         if (cargoStack.isWeaponStack()) {
             return cargoStack.getWeaponSpecIfWeapon().getTurretSpriteName();
