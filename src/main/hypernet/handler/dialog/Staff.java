@@ -15,11 +15,11 @@ public class Staff extends FilterAware {
         MutableFilterManager filterManager = plugin.getFilterManager();
 
         if (filterManager.getStaffType().equals(DialogOption.STAFF_ADMIN)) {
-            plugin.addText("Querying markets for freelance administrators.");
+            plugin.addText("Adding intel query for freelance administrators.");
             plugin.addIntelQuery();
         } else {
             String personality = filterManager.getStaffOfficer().name().substring(8).toLowerCase();
-            plugin.addText("Querying markets for " + personality + " officers.");
+            plugin.addText("Adding intel query for " + personality + " officers.");
             plugin.addIntelQuery(personality);
         }
 

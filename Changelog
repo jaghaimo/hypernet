@@ -1,3 +1,6 @@
+* unreleased
+- Improve wording on dialogs
+
 * Thu Oct 22 2020 - 1.2.0
 - Add merging CSV support to blacklist markets
 - Fix intel refresh not updating content of submarkets

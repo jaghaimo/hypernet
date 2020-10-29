@@ -43,7 +43,7 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
         }
         for (FleetMemberAPI fleetMember : fleet) {
             ShipSubject subject = new ShipSubject(fleetMember, null);
-            plugin.addText("Querying markets for " + subject.getIntelTitle() + ".");
+            plugin.addText("Adding intel query for " + subject.getIntelTitle() + ".");
             plugin.addIntelQuery(fleetMember);
         }
         Menu.forceMenu(plugin);

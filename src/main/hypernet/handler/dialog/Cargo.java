@@ -38,7 +38,7 @@ public class Cargo extends FilterAware implements CargoPickerListener {
         }
         cargo.sort();
         for (CargoStackAPI cargoStack : cargo.getStacksCopy()) {
-            plugin.addText("Querying markets for " + cargoStack.getDisplayName() + ".");
+            plugin.addText("Adding intel query for " + cargoStack.getDisplayName() + ".");
             plugin.addIntelQuery(cargoStack);
         }
         Menu.forceMenu(plugin);

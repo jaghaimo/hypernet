@@ -2,7 +2,7 @@ package hypernet;
 
 public enum DialogOption {
 
-    INIT("Go back"), EXIT("Cancel"), STAFF("Search for staff"), CARGO("Search for cargo"), SHIP("Search for ships"),
+    INIT("Go back"), EXIT("Finish"), STAFF("Search for staff"), CARGO("Search for cargo"), SHIP("Search for ships"),
 
     // staff type filter
     STAFF_OFFICER("Staff: Officers"), STAFF_ADMIN("Staff: Administrators"),
