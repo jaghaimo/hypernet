@@ -1,5 +1,6 @@
 * unreleased
 - Improve wording on dialogs
+- Results that are no longer valid will grey out and move to bottom
 
 * Thu Oct 22 2020 - 1.2.0
 - Add merging CSV support to blacklist markets

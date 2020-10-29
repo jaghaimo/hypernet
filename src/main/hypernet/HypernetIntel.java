@@ -64,6 +64,10 @@ public class HypernetIntel extends BaseIntelPlugin {
 
     @Override
     public IntelSortTier getSortTier() {
+        endIfInvalid();
+        if (isEnding() || isEnded()) {
+            return IntelSortTier.TIER_2;
+        }
         return IntelSortTier.TIER_1;
     }
 
@@ -75,6 +79,15 @@ public class HypernetIntel extends BaseIntelPlugin {
     @Override
     public boolean isNew() {
         return false;
+    }
+
+    private void endIfInvalid() {
+        if (!intelSubject.isAvailable()) {
+            endAfterDelay();
+        }
+        if (!intelSubject.canAcquire()) {
+            endAfterDelay();
+        }
     }
 
     private String getDistanceToPlayerLY(String format) {

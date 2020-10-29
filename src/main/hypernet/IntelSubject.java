@@ -13,6 +13,10 @@ public abstract class IntelSubject {
         market = m;
     }
 
+    public boolean canAcquire() {
+        return market != null;
+    }
+
     public String getIcon() {
         return market.getFaction().getCrest();
     }
@@ -22,6 +26,6 @@ public abstract class IntelSubject {
     }
 
     public boolean isAvailable() {
-        return market == null;
+        return market != null;
     }
 }
