@@ -1,6 +1,5 @@
 package hypernet.filter;
 
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 public class MarketIsNot implements MarketFilter {
