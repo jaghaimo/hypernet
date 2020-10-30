@@ -1,6 +1,7 @@
 * unreleased
 - Add small intel description and explain potential unavailability
 - Results that are no longer valid will grey out and move to bottom
+- Fix incorrectly rejecting Open Markets from some custom factions
 - Improve wording on dialogs
 
 * Thu Oct 22 2020 - 1.2.0

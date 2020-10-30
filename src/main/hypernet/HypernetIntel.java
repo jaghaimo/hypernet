@@ -100,6 +100,7 @@ public class HypernetIntel extends BaseIntelPlugin {
     }
 
     private void endIfInvalid() {
+        ending = false;
         if (!intelSubject.isAvailable()) {
             ending = true;
         }
