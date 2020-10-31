@@ -38,7 +38,6 @@ public class HypernetBoard extends BaseIntelPlugin {
         if (intel == null) {
             HypernetBoard board = new HypernetBoard();
             Global.getSector().getIntelManager().addIntel(board);
-            Global.getSector().addScript(board);
         }
         return (HypernetBoard) intel;
     }
@@ -133,7 +132,6 @@ public class HypernetBoard extends BaseIntelPlugin {
 
         for (int i = 0; i < queries.size(); i++) {
             IntelQuery query = queries.get(i);
-            query.refresh();
             elements.add(new QueryRow(panel, width, i, query));
         }
 
