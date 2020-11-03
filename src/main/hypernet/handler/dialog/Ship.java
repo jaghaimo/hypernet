@@ -16,10 +16,12 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 
 import hypernet.DialogOption;
 import hypernet.DialogPlugin;
+import hypernet.IntelProvider;
 import hypernet.filter.FleetMemberFilter;
 import hypernet.filter.MutableFilterManager;
 import hypernet.helper.CollectionHelper;
 import hypernet.helper.MarketHelper;
+import hypernet.provider.ShipIntelProvider;
 import hypernet.subject.ShipSubject;
 
 public class Ship extends FilterAware implements FleetMemberPickerListener {
@@ -43,8 +45,9 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
         }
         for (FleetMemberAPI fleetMember : fleet) {
             ShipSubject subject = new ShipSubject(fleetMember, null);
+            IntelProvider provider = new ShipIntelProvider(fleetMember);
             plugin.addText("Adding intel query for " + subject.getIntelTitle() + ".");
-            plugin.addIntelQuery(fleetMember);
+            plugin.addNewQuery(provider);
         }
         Menu.forceMenu(plugin);
     }
@@ -61,7 +64,8 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
             return option;
         }
 
-        plugin.showFleetPicker("Pick ships to query for...", "Query", "Cancel", 8, 12, 64f, true, true, fleet, this);
+        plugin.getDialog().showFleetMemberPickerDialog("Pick ships to query for...", "Query", "Cancel", 8, 12, 64f,
+                true, true, fleet, this);
         return option;
     }
 
@@ -103,5 +107,4 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
             return f1Name.compareTo(f2Name);
         }
     }
-
 }

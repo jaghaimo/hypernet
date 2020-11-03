@@ -12,10 +12,12 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import hypernet.DialogOption;
 import hypernet.DialogPlugin;
+import hypernet.IntelProvider;
 import hypernet.filter.CargoStackFilter;
 import hypernet.filter.MutableFilterManager;
 import hypernet.helper.CollectionHelper;
 import hypernet.helper.MarketHelper;
+import hypernet.provider.CargoIntelProvider;
 
 public class Cargo extends FilterAware implements CargoPickerListener {
 
@@ -38,8 +40,9 @@ public class Cargo extends FilterAware implements CargoPickerListener {
         }
         cargo.sort();
         for (CargoStackAPI cargoStack : cargo.getStacksCopy()) {
+            IntelProvider provider = new CargoIntelProvider(cargoStack);
             plugin.addText("Adding intel query for " + cargoStack.getDisplayName() + ".");
-            plugin.addIntelQuery(cargoStack);
+            plugin.addNewQuery(provider);
         }
         Menu.forceMenu(plugin);
     }
@@ -61,7 +64,8 @@ public class Cargo extends FilterAware implements CargoPickerListener {
             return option;
         }
 
-        plugin.showCargoPicker("Pick items to query for...", "Query", "Cancel", false, 0f, cargo, this);
+        plugin.getDialog().showCargoPickerDialog("Pick items to query for...", "Query", "Cancel", false, 0f, cargo,
+                this);
         return option;
     }
 
