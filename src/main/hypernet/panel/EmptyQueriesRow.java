@@ -15,7 +15,7 @@ public class EmptyQueriesRow extends BoardRow {
     @Override
     protected List<BoardElement> getLeftElements() {
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ParaElement(0, 20f, "No intel queries present"));
+        elements.add(new ParaElement(0, 20f, "No intel queries present."));
         return elements;
     }
 

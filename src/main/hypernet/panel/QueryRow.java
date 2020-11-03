@@ -27,23 +27,26 @@ public class QueryRow extends BoardRow {
     @Override
     protected List<BoardElement> getLeftElements() {
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ParaElement(300f, 20f, query.getDescription()));
+        elements.add(new ParaElement(0, 20f, query.getDescription()));
         return elements;
     }
 
     @Override
     protected List<BoardElement> getRightElements() {
+        float buttonWidth = getButtonWidth();
         String queryIdentifier = "#" + String.valueOf(queryNumber);
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ButtonElement(120f, 20f, "Delete", BUTTON_DELETE + queryIdentifier, true,
+        elements.add(new ButtonElement(buttonWidth, 20f, "Delete", BUTTON_DELETE + queryIdentifier, true,
                 Misc.getNegativeHighlightColor()));
-        elements.add(new ButtonElement(120f, 20f, "Disable", BUTTON_DISABLE + queryIdentifier, query.isEnabled(),
+        elements.add(new ButtonElement(buttonWidth, 20f, "Disable", BUTTON_DISABLE + queryIdentifier, query.isEnabled(),
                 Misc.getButtonTextColor()));
-        elements.add(new ButtonElement(120f, 20f, "Enable", BUTTON_ENABLE + queryIdentifier, !query.isEnabled(),
+        elements.add(new ButtonElement(buttonWidth, 20f, "Enable", BUTTON_ENABLE + queryIdentifier, !query.isEnabled(),
                 Misc.getButtonTextColor()));
-        elements.add(new ButtonElement(120f, 20f, "Refresh", BUTTON_REFRESH + queryIdentifier, true,
+        elements.add(new ButtonElement(buttonWidth, 20f, "Refresh", BUTTON_REFRESH + queryIdentifier, true,
                 Misc.getHighlightColor()));
-        elements.add(new ParaElement(100f, 20f, query.getResultCount()));
+        if (width > 800) {
+            elements.add(new ParaElement(80f, 20f, query.getResultCount()));
+        }
         return elements;
     }
 

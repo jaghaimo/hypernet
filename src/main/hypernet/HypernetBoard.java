@@ -1,6 +1,7 @@
 package hypernet;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import hypernet.handler.ButtonHandler;
 import hypernet.handler.ButtonHandlerFactory;
@@ -60,16 +62,19 @@ public class HypernetBoard extends BaseIntelPlugin {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        info.addTitle("HyperNET Board");
+        Color bulletColor = getBulletColorForMode(mode);
+        Color highlightColor = Misc.getHighlightColor();
+        info.addPara("HyperNET Board", getTitleColor(mode), 0);
 
         int queriesPresent = queries.size();
         if (queriesPresent == 1) {
-            info.addPara("Managing 1 intel query", 1f);
+            info.addPara("Managing %s intel query.", 1f, bulletColor, highlightColor, "1");
         } else if (queriesPresent > 1) {
-            info.addPara("Managing " + queriesPresent + " intel queries", 1f);
+            info.addPara("Managing %s intel queries.", 1f, bulletColor, highlightColor, String.valueOf(queriesPresent));
         } else {
-            info.addPara("No intel queries present", 1f);
+            info.addPara("No intel queries present.", 1f, bulletColor);
         }
+        info.addPara("", 1f);
     }
 
     @Override

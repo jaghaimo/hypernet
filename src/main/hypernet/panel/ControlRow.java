@@ -24,22 +24,24 @@ public class ControlRow extends BoardRow {
     @Override
     protected List<BoardElement> getLeftElements() {
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ButtonElement(120f, 20f, "New query", BUTTON_ADD, true, Misc.getPositiveHighlightColor()));
+        elements.add(new ButtonElement(getButtonWidth(), 20f, "New query", BUTTON_ADD, true,
+                Misc.getPositiveHighlightColor()));
 
         return elements;
     }
 
     @Override
     protected List<BoardElement> getRightElements() {
+        float buttonWidth = getButtonWidth();
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ButtonElement(120f, 20f, "Delete all", BUTTON_DELETE_ALL, isEnabled,
+        elements.add(new ButtonElement(buttonWidth, 20f, "Delete all", BUTTON_DELETE_ALL, isEnabled,
                 Misc.getNegativeHighlightColor()));
-        elements.add(
-                new ButtonElement(120f, 20f, "Disable all", BUTTON_DISABLE_ALL, isEnabled, Misc.getButtonTextColor()));
-        elements.add(
-                new ButtonElement(120f, 20f, "Enable all", BUTTON_ENABLE_ALL, isEnabled, Misc.getButtonTextColor()));
-        elements.add(
-                new ButtonElement(120f, 20f, "Refresh all", BUTTON_REFRESH_ALL, isEnabled, Misc.getHighlightColor()));
+        elements.add(new ButtonElement(buttonWidth, 20f, "Disable all", BUTTON_DISABLE_ALL, isEnabled,
+                Misc.getButtonTextColor()));
+        elements.add(new ButtonElement(buttonWidth, 20f, "Enable all", BUTTON_ENABLE_ALL, isEnabled,
+                Misc.getButtonTextColor()));
+        elements.add(new ButtonElement(buttonWidth, 20f, "Refresh all", BUTTON_REFRESH_ALL, isEnabled,
+                Misc.getHighlightColor()));
 
         return elements;
     }

@@ -28,6 +28,13 @@ public abstract class BoardRow {
         return Math.max(leftHeight, rightHeight);
     }
 
+    protected float getButtonWidth() {
+        if (width > 800) {
+            return 120f;
+        }
+        return 100f;
+    }
+
     abstract protected List<BoardElement> getLeftElements();
 
     abstract protected List<BoardElement> getRightElements();
