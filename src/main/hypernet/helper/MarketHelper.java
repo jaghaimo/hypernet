@@ -11,6 +11,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.BaseSubmarketPlugin;
 
+import hypernet.filter.MarketIsDiscovered;
 import hypernet.filter.MarketFilter;
 import hypernet.filter.MarketHasAdministrator;
 import hypernet.filter.MarketHasOfficer;
@@ -67,7 +68,12 @@ public class MarketHelper {
     public static List<MarketAPI> getMarkets() {
         List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         List<MarketFilter> filters = FilterHelper.getBlacklistMarketFilters();
-        filters.add(new MarketNotHidden());
+        if (ConfigHelper.marketHasToBeNotHidden()) {
+            filters.add(new MarketNotHidden());
+        }
+        if (ConfigHelper.marketHasToBeDiscovered()) {
+            filters.add(new MarketIsDiscovered());
+        }
         CollectionHelper.reduce(markets, filters);
         return markets;
     }

@@ -1,4 +1,6 @@
 {
+    "marketHasToBeNotHidden": true,
+    "marketHasToBeDiscovered": false,
     "graphics": {
         "illustrations": {
             "hypernet": "graphics/illustrations/comm_relay.jpg"
