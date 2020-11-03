@@ -1,4 +1,5 @@
 * unreleased - 1.4.0
+- Add friendly reminder before and after new month
 - Make market selection used in searches configurable
 - Improve HyperNET Board on small screens
 

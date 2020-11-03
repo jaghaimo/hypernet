@@ -6,11 +6,16 @@ public class HypernetMod extends BaseModPlugin {
 
     @Override
     public void onNewGameAfterEconomyLoad() {
-        HypernetBoard.getInstance();
+        init();
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
+        init();
+    }
+
+    private void init() {
         HypernetBoard.getInstance();
+        MonthEndListener.register();
     }
 }
