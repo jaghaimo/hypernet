@@ -27,7 +27,7 @@ public class QueryRow extends BoardRow {
     @Override
     protected List<BoardElement> getLeftElements() {
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ParaElement(0, 20f, query.getDescription()));
+        elements.add(new ParaElement(0, 20f, query));
         return elements;
     }
 
@@ -45,7 +45,7 @@ public class QueryRow extends BoardRow {
         elements.add(new ButtonElement(buttonWidth, 20f, "Refresh", BUTTON_REFRESH + queryIdentifier, true,
                 Misc.getHighlightColor()));
         if (width > 800) {
-            elements.add(new ParaElement(80f, 20f, query.getResultCount()));
+            elements.add(new ParaElement(80f, 20f, query.isStale(), query.getResultCount()));
         }
         return elements;
     }

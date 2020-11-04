@@ -1,6 +1,7 @@
 package hypernet;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CampaignClockAPI;
 
 import hypernet.filter.FilterManager;
 import hypernet.filter.ImmutableFilterManager;
@@ -8,13 +9,16 @@ import hypernet.filter.ImmutableFilterManager;
 public class IntelQuery {
 
     String createdDate;
+    long updatedDate;
     boolean isEnabled;
     FilterManager filterManager;
     IntelList hypernetIntels;
     IntelProvider intelProvider;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
-        createdDate = Global.getSector().getClock().getDateString();
+        CampaignClockAPI clock = getCurrentClock();
+        createdDate = clock.getDateString();
+        updatedDate = clock.getTimestamp();
         isEnabled = true;
         filterManager = new ImmutableFilterManager(fm);
         hypernetIntels = ip.provide(filterManager);
@@ -50,9 +54,26 @@ public class IntelQuery {
         return isEnabled;
     }
 
+    public boolean isStale() {
+        CampaignClockAPI current = getCurrentClock();
+        CampaignClockAPI lastUpdate = current.createClock(updatedDate);
+        if (current.getCycle() != lastUpdate.getCycle()) {
+            return true;
+        }
+        if (current.getMonth() != lastUpdate.getMonth()) {
+            return true;
+        }
+        return false;
+    }
+
     public void refresh() {
         hypernetIntels.removeIntel();
         hypernetIntels = intelProvider.provide(filterManager);
         hypernetIntels.addIntel(isEnabled);
+        updatedDate = getCurrentClock().getTimestamp();
+    }
+
+    private CampaignClockAPI getCurrentClock() {
+        return Global.getSector().getClock();
     }
 }
