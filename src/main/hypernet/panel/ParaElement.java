@@ -7,27 +7,27 @@ import hypernet.IntelQuery;
 
 public class ParaElement extends BoardElement {
 
-    private boolean isStale;
+    private boolean isActive;
     private String text;
 
     public ParaElement(float width, float height, IntelQuery query) {
         super(width, height);
-        this.isStale = query.isStale();
-        this.text = query.getDescription() + (isStale ? " (stale)" : "");
+        this.isActive = query.isEnabled() && !query.isStale();
+        this.text = query.getDescription();
     }
 
-    public ParaElement(float width, float height, boolean isStale, String description) {
+    public ParaElement(float width, float height, boolean isActive, String description) {
         super(width, height);
-        this.isStale = isStale;
+        this.isActive = isActive;
         this.text = description;
     }
 
     @Override
     public void render(TooltipMakerAPI inner) {
-        if (isStale) {
-            inner.addPara(text, Misc.getGrayColor(), 8f);
-        } else {
+        if (isActive) {
             inner.addPara(text, 8f);
+        } else {
+            inner.addPara(text, Misc.getGrayColor(), 8f);
         }
     }
 }

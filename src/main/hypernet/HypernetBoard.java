@@ -129,7 +129,7 @@ public class HypernetBoard extends BaseIntelPlugin {
     private List<BoardRow> getFreshBoardRows(CustomPanelAPI panel, float width) {
         List<BoardRow> elements = new ArrayList<>();
         elements.add(new ControlRow(panel, width, !queries.isEmpty()));
-        elements.add(new HeaderRow(panel, width, "HyperNET Queries"));
+        elements.add(new HeaderRow(panel, width));
 
         if (queries.isEmpty()) {
             elements.add(new EmptyQueriesRow(panel, width));

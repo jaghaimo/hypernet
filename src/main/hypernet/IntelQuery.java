@@ -31,7 +31,9 @@ public class IntelQuery {
     }
 
     public String getDescription() {
-        return intelProvider.getDescription();
+        String off = isEnabled() ? "" : " (disabled)";
+        String stale = isStale() ? " (stale)" : "";
+        return intelProvider.getDescription() + off + stale;
     }
 
     public String getResultCount() {
@@ -48,6 +50,10 @@ public class IntelQuery {
     public void enable() {
         isEnabled = true;
         hypernetIntels.addIntel(isEnabled);
+    }
+
+    public boolean isActive() {
+        return isEnabled() && !isStale();
     }
 
     public boolean isEnabled() {

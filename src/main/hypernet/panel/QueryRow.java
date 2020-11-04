@@ -13,7 +13,6 @@ public class QueryRow extends BoardRow {
     public final static String BUTTON_DELETE = "HYPERNET_DELETE";
     public final static String BUTTON_DISABLE = "HYPERNET_DISABLE";
     public final static String BUTTON_ENABLE = "HYPERNET_ENABLE";
-    public final static String BUTTON_REFRESH = "HYPERNET_REFRESH";
 
     private int queryNumber;
     private IntelQuery query;
@@ -25,6 +24,11 @@ public class QueryRow extends BoardRow {
     }
 
     @Override
+    public float getHeight() {
+        return super.getHeight() + 10f;
+    }
+
+    @Override
     protected List<BoardElement> getLeftElements() {
         List<BoardElement> elements = new ArrayList<>();
         elements.add(new ParaElement(0, 20f, query));
@@ -33,20 +37,18 @@ public class QueryRow extends BoardRow {
 
     @Override
     protected List<BoardElement> getRightElements() {
-        float buttonWidth = getButtonWidth();
         String queryIdentifier = "#" + String.valueOf(queryNumber);
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ButtonElement(buttonWidth, 20f, "Delete", BUTTON_DELETE + queryIdentifier, true,
+        elements.add(new ButtonElement(100f, 20f, "Delete", BUTTON_DELETE + queryIdentifier, true,
                 Misc.getNegativeHighlightColor()));
-        elements.add(new ButtonElement(buttonWidth, 20f, "Disable", BUTTON_DISABLE + queryIdentifier, query.isEnabled(),
-                Misc.getButtonTextColor()));
-        elements.add(new ButtonElement(buttonWidth, 20f, "Enable", BUTTON_ENABLE + queryIdentifier, !query.isEnabled(),
-                Misc.getButtonTextColor()));
-        elements.add(new ButtonElement(buttonWidth, 20f, "Refresh", BUTTON_REFRESH + queryIdentifier, true,
-                Misc.getHighlightColor()));
-        if (width > 800) {
-            elements.add(new ParaElement(80f, 20f, query.isStale(), query.getResultCount()));
+        if (query.isEnabled()) {
+            elements.add(new ButtonElement(100f, 20f, "Disable", BUTTON_DISABLE + queryIdentifier, true,
+                    Misc.getButtonTextColor()));
+        } else {
+            elements.add(new ButtonElement(100f, 20f, "Enable", BUTTON_ENABLE + queryIdentifier, true,
+                    Misc.getButtonTextColor()));
         }
+        elements.add(new ParaElement(80f, 20f, query.isActive(), query.getResultCount()));
         return elements;
     }
 

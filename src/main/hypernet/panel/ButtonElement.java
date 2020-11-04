@@ -27,9 +27,4 @@ public class ButtonElement extends BoardElement {
         ButtonAPI button = inner.addButton(title, id, mainColor, backgroundColor, width, height, 5f);
         button.setEnabled(isEnabled);
     }
-
-    @Override
-    public float getHeight() {
-        return height * 2;
-    }
 }
