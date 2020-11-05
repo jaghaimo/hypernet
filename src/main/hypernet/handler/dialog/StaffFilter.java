@@ -19,9 +19,9 @@ public class StaffFilter implements DialogHandler {
         filterManager.setStaffOfficer(option);
 
         DialogOption o = filterManager.getStaffType();
-        if (o.equals(DialogOption.STAFF_ADMIN)) {
+        if (o.equals(DialogOption.STAFF_TYPE_ADMIN)) {
             plugin.addOptions(DialogOption.STAFF, filterManager.getStaffType(), DialogOption.INIT);
-        } else if (o.equals(DialogOption.STAFF_OFFICER)) {
+        } else if (o.equals(DialogOption.STAFF_TYPE_OFFICER)) {
             plugin.addOptions(DialogOption.STAFF, filterManager.getStaffType(), filterManager.getStaffOfficer(),
                     DialogOption.INIT);
         }

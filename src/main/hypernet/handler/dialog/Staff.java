@@ -18,7 +18,7 @@ public class Staff extends FilterAware {
         IntelProvider provider;
         MutableFilterManager filterManager = plugin.getFilterManager();
 
-        if (filterManager.getStaffType().equals(DialogOption.STAFF_ADMIN)) {
+        if (filterManager.getStaffType().equals(DialogOption.STAFF_TYPE_ADMIN)) {
             plugin.addText("Adding intel query for freelance administrators.");
             provider = new AdminIntelProvider();
         } else {
