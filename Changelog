@@ -1,4 +1,4 @@
-* unreleased - 1.4.0
+* Thu Nov 05 2020 - 1.4.0
 - Simplify HyperNET Board and reduce color palette
 - Indicate on HyperNET Board that intel might be stale
 - Add friendly reminder before and after new month
