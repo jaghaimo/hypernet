@@ -2,6 +2,7 @@ package hypernet;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.RelationshipAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -39,6 +40,14 @@ public abstract class IntelSubject {
 
     public boolean isAvailable() {
         return market != null;
+    }
+
+    protected void addBasicInfo(TooltipMakerAPI info, String basicInfo) {
+        FactionAPI faction = market.getFaction();
+        RelationshipAPI relationship = faction.getRelToPlayer();
+        String reputation = relationship.getLevel().getDisplayName();
+        info.addPara(basicInfo + " The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
+                Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
     }
 
     protected void addHeader(TooltipMakerAPI info, float width) {

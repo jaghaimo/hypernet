@@ -3,9 +3,11 @@ package hypernet.subject;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.characters.RelationshipAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -25,7 +27,7 @@ public abstract class PersonSubject extends IntelSubject {
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         addHeader(info, width);
         List<CommDirectoryEntryAPI> people = getPeople();
-        addPersonCount(info, people.size());
+        addBasicInfo(info, people.size());
         for (CommDirectoryEntryAPI person : people) {
             addPerson(info, (PersonAPI) person.getEntryData());
         }
@@ -33,11 +35,13 @@ public abstract class PersonSubject extends IntelSubject {
 
     protected abstract List<PersonFilter> getFilters();
 
-    private void addPersonCount(TooltipMakerAPI info, int adminsSize) {
+    private void addBasicInfo(TooltipMakerAPI info, int adminsSize) {
         String isOrAre = adminsSize == 1 ? " is " : " are ";
         String numberOrNo = adminsSize == 0 ? "no " : adminsSize + " ";
         String emptyOrS = adminsSize == 1 ? "" : "s";
-        info.addPara("There" + isOrAre + numberOrNo + entity + emptyOrS + " present.", 10f);
+        String basicInfo = "There" + isOrAre + numberOrNo + entity + emptyOrS + " present on " + market.getName() + ".";
+
+        super.addBasicInfo(info, basicInfo);
     }
 
     private void addPerson(TooltipMakerAPI info, PersonAPI person) {
