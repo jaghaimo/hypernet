@@ -41,13 +41,13 @@ public abstract class IntelSubject {
         return market != null;
     }
 
-    private void addHeader(TooltipMakerAPI info, float width) {
+    protected void addHeader(TooltipMakerAPI info, float width) {
         FactionAPI faction = market.getFaction();
         info.addSectionHeading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor(), Alignment.MID, 5f);
         info.addImage(faction.getLogo(), width, 128, 10f);
     }
 
-    private void addAvailability(TooltipMakerAPI info) {
+    protected void addAvailability(TooltipMakerAPI info) {
         String message;
         String subject;
         if (!isAvailable()) {
