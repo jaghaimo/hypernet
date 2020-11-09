@@ -22,6 +22,14 @@ public abstract class SubmarketSubject extends IntelSubject {
         super(e, m);
     }
 
+    @Override
+    public boolean isAvailable() {
+        SubmarketFilter filter = getFilter();
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filter);
+        return !submarkets.isEmpty();
+    }
+
     protected void addBasicInfo(TooltipMakerAPI info) {
         int submarketCount = getSubmarketCount();
         String isOrAreSubmarkets = submarketCount == 1 ? "is" : "are";

@@ -66,14 +66,6 @@ public class CargoSubject extends SubmarketSubject {
     }
 
     @Override
-    public boolean isAvailable() {
-        SubmarketFilter filter = new SubmarketHasCargoStack(cargoStack);
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filter);
-        return !submarkets.isEmpty();
-    }
-
-    @Override
     protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
         super.addSubmarket(info, submarket);
         CargoAPI cargo = Global.getFactory().createCargo(false);

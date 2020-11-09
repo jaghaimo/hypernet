@@ -20,7 +20,7 @@ import hypernet.helper.MarketHelper;
 public class ShipSubject extends SubmarketSubject {
 
     private FleetMemberAPI ship;
-    private Map<SubmarketAPI, List<FleetMemberAPI>> submarketsWithFleetMember;
+    private Map<SubmarketAPI, List<FleetMemberAPI>> submarketsWithFleetMembers;
 
     public ShipSubject(FleetMemberAPI s, MarketAPI m) {
         super(s.getHullSpec().getHullNameWithDashClass() + " " + s.getHullSpec().getDesignation(), m);
@@ -41,7 +41,7 @@ public class ShipSubject extends SubmarketSubject {
         populate();
         addHeader(info, width);
         addBasicInfo(info);
-        for (SubmarketAPI submarket : submarketsWithFleetMember.keySet()) {
+        for (SubmarketAPI submarket : submarketsWithFleetMembers.keySet()) {
             addSubmarket(info, submarket);
         }
     }
@@ -52,23 +52,15 @@ public class ShipSubject extends SubmarketSubject {
     }
 
     @Override
-    public boolean isAvailable() {
-        SubmarketFilter filter = new SubmarketHasFleetMember(ship);
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filter);
-        return !submarkets.isEmpty();
-    }
-
-    @Override
     protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
         super.addSubmarket(info, submarket);
-        info.showShips(submarketsWithFleetMember.get(submarket), 1, false, 3f);
+        info.showShips(submarketsWithFleetMembers.get(submarket), 1, false, 3f);
     }
 
     @Override
     protected int getEntityCount() {
         int count = 0;
-        for (List<FleetMemberAPI> fleetMembers : submarketsWithFleetMember.values()) {
+        for (List<FleetMemberAPI> fleetMembers : submarketsWithFleetMembers.values()) {
             count += fleetMembers.size();
         }
         return count;
@@ -81,13 +73,13 @@ public class ShipSubject extends SubmarketSubject {
 
     @Override
     protected int getSubmarketCount() {
-        return submarketsWithFleetMember.size();
+        return submarketsWithFleetMembers.size();
     }
 
     private void populate() {
-        submarketsWithFleetMember = new HashMap<>();
+        submarketsWithFleetMembers = new HashMap<>();
         for (SubmarketAPI submarket : getSubmarkets()) {
-            submarketsWithFleetMember.put(submarket, getFleetMembers(submarket, ship));
+            submarketsWithFleetMembers.put(submarket, getFleetMembers(submarket, ship));
         }
     }
 }
