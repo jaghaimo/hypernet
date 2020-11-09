@@ -30,8 +30,7 @@ public class CargoIntelProvider implements IntelProvider {
         List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets();
         SubmarketFilter filter = new SubmarketHasCargoStack(cargoStack);
         CollectionHelper.reduce(submarkets, filter);
-        for (SubmarketAPI submarket : submarkets) {
-            MarketAPI market = submarket.getMarket();
+        for (MarketAPI market : MarketHelper.extractMarkets(submarkets)) {
             CargoSubject subject = new CargoSubject(cargoStack, market);
             intels.add(new HypernetIntel(market.getFaction(), market.getPrimaryEntity(), subject));
         }

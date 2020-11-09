@@ -1,31 +1,24 @@
 package hypernet.filter;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
+
+import hypernet.helper.CollectionHelper;
 
 public class MarketHasOfficer implements MarketFilter {
 
-    private String personality;
+    private List<PersonFilter> filters;
 
-    public MarketHasOfficer(String p) {
-        personality = p;
+    public MarketHasOfficer(String personality) {
+        filters = Arrays.asList(new PersonOfficer(), new PersonPersonality(personality));
     }
 
     public boolean accept(MarketAPI market) {
-        for (CommDirectoryEntryAPI entry : market.getCommDirectory().getEntriesCopy()) {
-            PersonAPI person = (PersonAPI) entry.getEntryData();
-
-            if (!person.getPostId().equals(Ranks.POST_MERCENARY)) {
-                continue;
-            }
-
-            if (personality.equals(person.getPersonalityAPI().getId())) {
-                return true;
-            }
-        }
-
-        return false;
+        List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
+        CollectionHelper.reduce(people, filters);
+        return !people.isEmpty();
     }
 }

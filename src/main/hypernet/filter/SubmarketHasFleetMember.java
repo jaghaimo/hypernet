@@ -1,25 +1,23 @@
 package hypernet.filter;
 
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+
+import hypernet.helper.CollectionHelper;
 
 public class SubmarketHasFleetMember implements SubmarketFilter {
 
-    private String shipHullSpec;
+    private FleetMemberFilter filter;
 
-    public SubmarketHasFleetMember(FleetMemberAPI f) {
-        shipHullSpec = f.getHullSpec().getHullId();
+    public SubmarketHasFleetMember(FleetMemberAPI fleetMember) {
+        filter = new FleetMembersHasMember(fleetMember);
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        for (FleetMemberAPI f : submarket.getCargo().getMothballedShips().getMembersListCopy()) {
-            ShipHullSpecAPI hullSpec = f.getHullSpec();
-            if (shipHullSpec.equals(hullSpec.getHullId())) {
-                return true;
-            }
-        }
-
-        return false;
+        List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+        CollectionHelper.reduce(fleetMembers, filter);
+        return !fleetMembers.isEmpty();
     }
 }
