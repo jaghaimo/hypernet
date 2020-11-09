@@ -78,7 +78,7 @@ public class CargoSubject extends SubmarketSubject {
         super.addSubmarket(info, submarket);
         CargoAPI cargo = Global.getFactory().createCargo(false);
         cargo.addFromStack(submarketsWithCargoStack.get(submarket));
-        info.showCargo(cargo, 1, false, 1f);
+        info.showCargo(cargo, 1, false, 3f);
     }
 
     @Override
@@ -91,13 +91,13 @@ public class CargoSubject extends SubmarketSubject {
     }
 
     @Override
-    protected int getSubmarketCount() {
-        return submarketsWithCargoStack.size();
+    protected SubmarketFilter getFilter() {
+        return new SubmarketHasCargoStack(cargoStack);
     }
 
     @Override
-    protected SubmarketFilter getFilter() {
-        return new SubmarketHasCargoStack(cargoStack);
+    protected int getSubmarketCount() {
+        return submarketsWithCargoStack.size();
     }
 
     private void populate() {

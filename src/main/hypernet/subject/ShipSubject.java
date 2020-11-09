@@ -62,7 +62,7 @@ public class ShipSubject extends SubmarketSubject {
     @Override
     protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
         super.addSubmarket(info, submarket);
-        info.showShips(submarketsWithFleetMember.get(submarket), 1, false, 1f);
+        info.showShips(submarketsWithFleetMember.get(submarket), 1, false, 3f);
     }
 
     @Override

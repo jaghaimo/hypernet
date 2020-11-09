@@ -56,19 +56,15 @@ public abstract class SubmarketSubject extends IntelSubject {
         return fleetMembers;
     }
 
-    protected int getEntityCount() {
-        return 0;
-    }
-
-    protected int getSubmarketCount() {
-        return 0;
-    }
-
     protected List<SubmarketAPI> getSubmarkets() {
         List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
         CollectionHelper.reduce(submarkets, getFilter());
         return submarkets;
     }
 
+    protected abstract int getEntityCount();
+
     protected abstract SubmarketFilter getFilter();
+
+    protected abstract int getSubmarketCount();
 }
