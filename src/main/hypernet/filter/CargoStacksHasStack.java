@@ -2,7 +2,7 @@ package hypernet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 
-public class CargoStacksHasStack implements Filter<CargoStackAPI> {
+public class CargoStacksHasStack implements CargoStackFilter {
 
     private CargoStackAPI cargoStack;
 

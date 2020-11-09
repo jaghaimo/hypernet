@@ -9,7 +9,7 @@ import hypernet.helper.CollectionHelper;
 
 public class SubmarketHasCargoStack implements SubmarketFilter {
 
-    private CargoStacksHasStack filter;
+    private CargoStackFilter filter;
 
     public SubmarketHasCargoStack(CargoStackAPI cargoStack) {
         filter = new CargoStacksHasStack(cargoStack);
