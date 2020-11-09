@@ -46,7 +46,7 @@ public abstract class IntelSubject {
         FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        info.addPara(basicInfo + " The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
+        info.addPara(basicInfo + "The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
     }
 
@@ -64,7 +64,7 @@ public abstract class IntelSubject {
             message = "There are no more %s left on %s.";
         } else if (!canAcquire()) {
             subject = getIntelDesc();
-            message = "You do not meet the requirements to purchase %s on %s.";
+            message = "You do not meet the requirements to purchase any %s on %s.";
         } else {
             subject = getIntelTitle();
             message = "%s can be found on %s.";

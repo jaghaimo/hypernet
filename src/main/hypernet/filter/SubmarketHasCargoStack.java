@@ -1,23 +1,23 @@
 package hypernet.filter;
 
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
+import hypernet.helper.CollectionHelper;
+
 public class SubmarketHasCargoStack implements SubmarketFilter {
 
-    private CargoStackAPI cargoStack;
+    private CargoStacksHasStack filter;
 
-    public SubmarketHasCargoStack(CargoStackAPI cs) {
-        cargoStack = cs;
+    public SubmarketHasCargoStack(CargoStackAPI cargoStack) {
+        filter = new CargoStacksHasStack(cargoStack);
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        for (CargoStackAPI c : submarket.getCargo().getStacksCopy()) {
-            if (cargoStack.getDisplayName().equals(c.getDisplayName())) {
-                return true;
-            }
-        }
-
-        return false;
+        List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
+        CollectionHelper.reduce(cargoStacks, filter);
+        return !cargoStacks.isEmpty();
     }
 }

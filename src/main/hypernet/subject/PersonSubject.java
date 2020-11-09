@@ -39,8 +39,8 @@ public abstract class PersonSubject extends IntelSubject {
         String isOrAre = adminsSize == 1 ? " is " : " are ";
         String numberOrNo = adminsSize == 0 ? "no " : adminsSize + " ";
         String emptyOrS = adminsSize == 1 ? "" : "s";
-        String basicInfo = "There" + isOrAre + numberOrNo + entity + emptyOrS + " present on " + market.getName() + ".";
-
+        String basicInfo = "There" + isOrAre + numberOrNo + entity + emptyOrS + " present on " + market.getName()
+                + ". ";
         super.addBasicInfo(info, basicInfo);
     }
 
@@ -53,6 +53,7 @@ public abstract class PersonSubject extends IntelSubject {
         String dotOrColon = skillSize == 0 ? "." : ":";
         String adminPara = "%s, level " + person.getStats().getLevel() + " " + entity + " with " + numberOrNo
                 + skillOrSkills + dotOrColon;
+        info.addPara("", 0f);
         info.addPara(adminPara, 10f, Misc.getTextColor(), Misc.getHighlightColor(), person.getNameString());
         addSkills(info, skills);
     }

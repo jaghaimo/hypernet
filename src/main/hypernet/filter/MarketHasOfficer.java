@@ -10,15 +10,15 @@ import hypernet.helper.CollectionHelper;
 
 public class MarketHasOfficer implements MarketFilter {
 
-    private String personality;
+    private List<PersonFilter> filters;
 
-    public MarketHasOfficer(String p) {
-        personality = p;
+    public MarketHasOfficer(String personality) {
+        filters = Arrays.asList(new PersonOfficer(), new PersonPersonality(personality));
     }
 
     public boolean accept(MarketAPI market) {
         List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
-        CollectionHelper.reduce(people, Arrays.asList(new PersonOfficer(), new PersonPersonality(personality)));
+        CollectionHelper.reduce(people, filters);
         return !people.isEmpty();
     }
 }
