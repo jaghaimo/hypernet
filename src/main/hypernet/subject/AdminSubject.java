@@ -17,6 +17,11 @@ public class AdminSubject extends PersonSubject {
     }
 
     @Override
+    public boolean canAcquire() {
+        return true;
+    }
+
+    @Override
     public boolean isAvailable() {
         MarketFilter filter = new MarketHasAdministrator();
         return filter.accept(market);

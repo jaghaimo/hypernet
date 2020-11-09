@@ -21,6 +21,11 @@ public class OfficerSubject extends PersonSubject {
     }
 
     @Override
+    public boolean canAcquire() {
+        return true;
+    }
+
+    @Override
     public boolean isAvailable() {
         MarketFilter filter = new MarketHasOfficer(personality);
         return filter.accept(market);

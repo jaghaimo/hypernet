@@ -17,15 +17,6 @@ public abstract class IntelSubject {
         market = m;
     }
 
-    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        addHeader(info, width);
-        addAvailability(info);
-    }
-
-    public boolean canAcquire() {
-        return market != null;
-    }
-
     public String getIcon() {
         return market.getFaction().getCrest();
     }
@@ -38,9 +29,11 @@ public abstract class IntelSubject {
         return entity + "s";
     }
 
-    public boolean isAvailable() {
-        return market != null;
-    }
+    public abstract void createSmallDescription(TooltipMakerAPI info, float width, float height);
+
+    public abstract boolean canAcquire();
+
+    public abstract boolean isAvailable();
 
     protected void addBasicInfo(TooltipMakerAPI info, String basicInfo) {
         FactionAPI faction = market.getFaction();
@@ -54,21 +47,5 @@ public abstract class IntelSubject {
         FactionAPI faction = market.getFaction();
         info.addSectionHeading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor(), Alignment.MID, 5f);
         info.addImage(faction.getLogo(), width, 128, 10f);
-    }
-
-    protected void addAvailability(TooltipMakerAPI info) {
-        String message;
-        String subject;
-        if (!isAvailable()) {
-            subject = getIntelDesc();
-            message = "There are no more %s left on %s.";
-        } else if (!canAcquire()) {
-            subject = getIntelDesc();
-            message = "You do not meet the requirements to purchase any %s on %s.";
-        } else {
-            subject = getIntelTitle();
-            message = "%s can be found on %s.";
-        }
-        info.addPara(message, 10f, Misc.getHighlightColor(), subject, market.getName());
     }
 }
