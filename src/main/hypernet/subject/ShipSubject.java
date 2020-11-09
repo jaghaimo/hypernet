@@ -1,5 +1,6 @@
 package hypernet.subject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,11 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import hypernet.filter.SubmarketCanAcquireFleetMember;
 import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasFleetMember;
+import hypernet.filter.SubmarketIsAccessible;
+import hypernet.helper.CollectionHelper;
 import hypernet.helper.MarketHelper;
 
 public class ShipSubject extends SubmarketSubject {
@@ -25,7 +29,11 @@ public class ShipSubject extends SubmarketSubject {
 
     @Override
     public boolean canAcquire() {
-        return MarketHelper.canAcquire(market, ship);
+        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasFleetMember(ship),
+                new SubmarketCanAcquireFleetMember(ship), new SubmarketIsAccessible());
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
     }
 
     @Override
@@ -45,7 +53,16 @@ public class ShipSubject extends SubmarketSubject {
 
     @Override
     public boolean isAvailable() {
-        return MarketHelper.has(market, ship);
+        SubmarketFilter filter = new SubmarketHasFleetMember(ship);
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filter);
+        return !submarkets.isEmpty();
+    }
+
+    @Override
+    protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
+        super.addSubmarket(info, submarket);
+        info.showShips(submarketsWithFleetMember.get(submarket), 1, false, 1f);
     }
 
     @Override

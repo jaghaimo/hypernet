@@ -30,8 +30,7 @@ public class ShipIntelProvider implements IntelProvider {
         List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets();
         SubmarketFilter filter = new SubmarketHasFleetMember(fleetMember);
         CollectionHelper.reduce(submarkets, filter);
-        for (SubmarketAPI submarket : submarkets) {
-            MarketAPI market = submarket.getMarket();
+        for (MarketAPI market : MarketHelper.extractMarkets(submarkets)) {
             ShipSubject subject = new ShipSubject(fleetMember, market);
             intels.add(new HypernetIntel(market.getFaction(), market.getPrimaryEntity(), subject));
         }

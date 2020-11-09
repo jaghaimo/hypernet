@@ -5,10 +5,11 @@ import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
+import hypernet.filter.MarketFilter;
+import hypernet.filter.MarketHasOfficer;
 import hypernet.filter.PersonFilter;
 import hypernet.filter.PersonOfficer;
 import hypernet.filter.PersonPersonality;
-import hypernet.helper.MarketHelper;
 
 public class OfficerSubject extends PersonSubject {
 
@@ -21,7 +22,8 @@ public class OfficerSubject extends PersonSubject {
 
     @Override
     public boolean isAvailable() {
-        return MarketHelper.has(market, personality);
+        MarketFilter filter = new MarketHasOfficer(personality);
+        return filter.accept(market);
     }
 
     @Override

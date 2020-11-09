@@ -2,67 +2,27 @@ package hypernet.helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.BaseSubmarketPlugin;
 
-import hypernet.filter.MarketIsDiscovered;
 import hypernet.filter.MarketFilter;
-import hypernet.filter.MarketHasAdministrator;
-import hypernet.filter.MarketHasOfficer;
+import hypernet.filter.MarketIsDiscovered;
 import hypernet.filter.MarketNotHidden;
-import hypernet.filter.SubmarketCanAcquireCargoStack;
-import hypernet.filter.SubmarketCanAcquireFleetMember;
-import hypernet.filter.SubmarketFilter;
-import hypernet.filter.SubmarketHasCargoStack;
-import hypernet.filter.SubmarketHasFleetMember;
-import hypernet.filter.SubmarketIsAccessible;
 
 public class MarketHelper {
 
-    public static boolean canAcquire(MarketAPI market, CargoStackAPI cargoStack) {
-        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasCargoStack(cargoStack),
-                new SubmarketIsAccessible(), new SubmarketCanAcquireCargoStack(cargoStack));
-        List<SubmarketAPI> submarkets = getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filters);
-        return !submarkets.isEmpty();
-    }
-
-    public static boolean canAcquire(MarketAPI market, FleetMemberAPI fleetMember) {
-        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasFleetMember(fleetMember),
-                new SubmarketIsAccessible(), new SubmarketCanAcquireFleetMember(fleetMember));
-        List<SubmarketAPI> submarkets = getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filters);
-        return !submarkets.isEmpty();
-    }
-
-    public static boolean has(MarketAPI market, CargoStackAPI cargoStack) {
-        SubmarketFilter filter = new SubmarketHasCargoStack(cargoStack);
-        List<SubmarketAPI> submarkets = getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filter);
-        return !submarkets.isEmpty();
-    }
-
-    public static boolean has(MarketAPI market, FleetMemberAPI fleetMember) {
-        SubmarketFilter filter = new SubmarketHasFleetMember(fleetMember);
-        List<SubmarketAPI> submarkets = getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, filter);
-        return !submarkets.isEmpty();
-    }
-
-    public static boolean has(MarketAPI market, String personality) {
-        MarketFilter filter = new MarketHasOfficer(personality);
-        return filter.accept(market);
-    }
-
-    public static boolean has(MarketAPI market) {
-        MarketFilter filter = new MarketHasAdministrator();
-        return filter.accept(market);
+    public static Set<MarketAPI> extractMarkets(List<SubmarketAPI> submarkets) {
+        Set<MarketAPI> markets = new HashSet<>();
+        for (SubmarketAPI submarket : submarkets) {
+            markets.add(submarket.getMarket());
+        }
+        return markets;
     }
 
     public static List<MarketAPI> getMarkets() {

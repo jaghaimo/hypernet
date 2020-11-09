@@ -1,6 +1,8 @@
 package hypernet.subject;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fs.starfarer.api.Global;
@@ -10,8 +12,11 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import hypernet.filter.SubmarketCanAcquireCargoStack;
 import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasCargoStack;
+import hypernet.filter.SubmarketIsAccessible;
+import hypernet.helper.CollectionHelper;
 import hypernet.helper.MarketHelper;
 
 public class CargoSubject extends SubmarketSubject {
@@ -36,7 +41,11 @@ public class CargoSubject extends SubmarketSubject {
 
     @Override
     public boolean canAcquire() {
-        return MarketHelper.canAcquire(market, cargoStack);
+        List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasCargoStack(cargoStack),
+                new SubmarketIsAccessible(), new SubmarketCanAcquireCargoStack(cargoStack));
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
     }
 
     @Override
@@ -58,7 +67,10 @@ public class CargoSubject extends SubmarketSubject {
 
     @Override
     public boolean isAvailable() {
-        return MarketHelper.has(market, cargoStack);
+        SubmarketFilter filter = new SubmarketHasCargoStack(cargoStack);
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, filter);
+        return !submarkets.isEmpty();
     }
 
     @Override
@@ -66,7 +78,7 @@ public class CargoSubject extends SubmarketSubject {
         super.addSubmarket(info, submarket);
         CargoAPI cargo = Global.getFactory().createCargo(false);
         cargo.addFromStack(submarketsWithCargoStack.get(submarket));
-        info.showCargo(cargo, 1, false, 0f);
+        info.showCargo(cargo, 1, false, 1f);
     }
 
     @Override
