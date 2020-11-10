@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
@@ -27,16 +28,6 @@ public class CargoSubject extends SubmarketSubject {
     public CargoSubject(CargoStackAPI c, MarketAPI m) {
         super(c.getDisplayName(), m);
         cargoStack = c;
-    }
-
-    @Override
-    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        populate();
-        addHeader(info, width);
-        addBasicInfo(info);
-        for (SubmarketAPI submarket : submarketsWithCargoStack.keySet()) {
-            addSubmarket(info, submarket);
-        }
     }
 
     @Override
@@ -92,9 +83,15 @@ public class CargoSubject extends SubmarketSubject {
         return submarketsWithCargoStack.size();
     }
 
-    private void populate() {
+    @Override
+    protected Set<SubmarketAPI> getSubmarkets() {
+        return submarketsWithCargoStack.keySet();
+    }
+
+    @Override
+    protected void populate() {
         submarketsWithCargoStack = new HashMap<>();
-        for (SubmarketAPI submarket : getSubmarkets()) {
+        for (SubmarketAPI submarket : findSubmarkets()) {
             submarketsWithCargoStack.put(submarket, getCargoStack(submarket, cargoStack));
         }
     }

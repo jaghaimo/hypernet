@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -37,16 +38,6 @@ public class ShipSubject extends SubmarketSubject {
     }
 
     @Override
-    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        populate();
-        addHeader(info, width);
-        addBasicInfo(info);
-        for (SubmarketAPI submarket : submarketsWithFleetMembers.keySet()) {
-            addSubmarket(info, submarket);
-        }
-    }
-
-    @Override
     public String getIcon() {
         return ship.getHullSpec().getSpriteName();
     }
@@ -76,9 +67,15 @@ public class ShipSubject extends SubmarketSubject {
         return submarketsWithFleetMembers.size();
     }
 
-    private void populate() {
+    @Override
+    protected Set<SubmarketAPI> getSubmarkets() {
+        return submarketsWithFleetMembers.keySet();
+    }
+
+    @Override
+    protected void populate() {
         submarketsWithFleetMembers = new HashMap<>();
-        for (SubmarketAPI submarket : getSubmarkets()) {
+        for (SubmarketAPI submarket : findSubmarkets()) {
             submarketsWithFleetMembers.put(submarket, getFleetMembers(submarket, ship));
         }
     }
