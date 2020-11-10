@@ -1,6 +1,7 @@
 package hypernet.subject;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
@@ -20,6 +21,16 @@ public abstract class SubmarketSubject extends IntelSubject {
 
     public SubmarketSubject(String e, MarketAPI m) {
         super(e, m);
+    }
+
+    @Override
+    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
+        populate();
+        addHeader(info, width);
+        addBasicInfo(info);
+        for (SubmarketAPI submarket : getSubmarkets()) {
+            addSubmarket(info, submarket);
+        }
     }
 
     @Override
@@ -49,6 +60,12 @@ public abstract class SubmarketSubject extends IntelSubject {
         info.addPara(submarket.getNameOneLine(), faction.getBaseUIColor(), 10f);
     }
 
+    protected List<SubmarketAPI> findSubmarkets() {
+        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        CollectionHelper.reduce(submarkets, getFilter());
+        return submarkets;
+    }
+
     protected CargoStackAPI getCargoStack(SubmarketAPI submarket, CargoStackAPI cargoStack) {
         List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
         CollectionHelper.reduce(cargoStacks, new CargoStacksHasStack(cargoStack));
@@ -64,15 +81,13 @@ public abstract class SubmarketSubject extends IntelSubject {
         return fleetMembers;
     }
 
-    protected List<SubmarketAPI> getSubmarkets() {
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
-        CollectionHelper.reduce(submarkets, getFilter());
-        return submarkets;
-    }
-
     protected abstract int getEntityCount();
 
     protected abstract SubmarketFilter getFilter();
 
     protected abstract int getSubmarketCount();
+
+    protected abstract Set<SubmarketAPI> getSubmarkets();
+
+    protected abstract void populate();
 }
