@@ -41,12 +41,13 @@ public class QueryRow extends BoardRow {
         List<BoardElement> elements = new ArrayList<>();
         elements.add(new ButtonElement(100f, 20f, "Delete", BUTTON_DELETE + queryIdentifier, true,
                 Misc.getNegativeHighlightColor()));
+        elements.add(new EmptyElement(0f, 20f));
         if (query.isEnabled()) {
-            elements.add(new ButtonElement(100f, 20f, "Disable", BUTTON_DISABLE + queryIdentifier, true,
+            elements.add(new ButtonElement(60f, 20f, "On", BUTTON_DISABLE + queryIdentifier, true,
                     Misc.getButtonTextColor()));
         } else {
-            elements.add(new ButtonElement(100f, 20f, "Enable", BUTTON_ENABLE + queryIdentifier, true,
-                    Misc.getButtonTextColor()));
+            elements.add(
+                    new ButtonElement(60f, 20f, "Off", BUTTON_ENABLE + queryIdentifier, true, Misc.getGrayColor()));
         }
         elements.add(new ParaElement(80f, 20f, query.isActive(), query.getResultCount()));
         return elements;
