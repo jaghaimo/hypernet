@@ -1,4 +1,4 @@
-* unreleased - 1.5.0
+* Thu Nov 12 2020 - 1.5.0
 - Rework small intel description for all intel types
 - Rename Enable/Disable to Off/On (and change disabled color)
 - Fix duplicated results when multiple submarkets were a match
