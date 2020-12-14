@@ -79,6 +79,14 @@ public class IntelQuery {
         updatedDate = getCurrentClock().getTimestamp();
     }
 
+    public void toggle() {
+        if (isEnabled()) {
+            disable();
+        } else {
+            enable();
+        }
+    }
+
     private CampaignClockAPI getCurrentClock() {
         return Global.getSector().getClock();
     }

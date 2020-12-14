@@ -11,6 +11,7 @@ public class ControlRow extends BoardRow {
     public final static String BUTTON_ADD = "HYPERNET_NEW_QUERY";
     public final static String BUTTON_DELETE_ALL = "HYPERNET_DELETE_ALL";
     public final static String BUTTON_REFRESH_ALL = "HYPERNET_REFRESH_ALL";
+    public final static String BUTTON_TOGGLE_ALL = "HYPERNET_TOGGLE_ALL";
 
     private boolean isEnabled;
 
@@ -29,8 +30,11 @@ public class ControlRow extends BoardRow {
         List<BoardElement> elements = new ArrayList<>();
         elements.add(
                 new ButtonElement(160f, 20f, "Add a New Query", BUTTON_ADD, true, Misc.getPositiveHighlightColor()));
-        elements.add(new EmptyElement(10f, 20f));
+        elements.add(new EmptyElement(0f, 20f));
         elements.add(new ButtonElement(160f, 20f, "Refresh All Queries", BUTTON_REFRESH_ALL, isEnabled,
+                Misc.getButtonTextColor()));
+        elements.add(new EmptyElement(0f, 20f));
+        elements.add(new ButtonElement(160f, 20f, "Toggle All Queries", BUTTON_TOGGLE_ALL, isEnabled,
                 Misc.getButtonTextColor()));
 
         return elements;
