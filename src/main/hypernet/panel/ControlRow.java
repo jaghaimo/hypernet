@@ -30,9 +30,10 @@ public class ControlRow extends BoardRow {
         List<BoardElement> elements = new ArrayList<>();
         elements.add(
                 new ButtonElement(160f, 20f, "Add a New Query", BUTTON_ADD, true, Misc.getPositiveHighlightColor()));
-        elements.add(new EmptyElement(10f, 20f));
+        elements.add(new EmptyElement(0f, 20f));
         elements.add(new ButtonElement(160f, 20f, "Refresh All Queries", BUTTON_REFRESH_ALL, isEnabled,
                 Misc.getButtonTextColor()));
+        elements.add(new EmptyElement(0f, 20f));
         elements.add(new ButtonElement(160f, 20f, "Toggle All Queries", BUTTON_TOGGLE_ALL, isEnabled,
                 Misc.getButtonTextColor()));
 
