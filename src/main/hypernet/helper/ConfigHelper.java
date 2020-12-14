@@ -11,4 +11,8 @@ public class ConfigHelper {
     public static boolean marketHasToBeDiscovered() {
         return Global.getSettings().getBoolean("marketHasToBeDiscovered");
     }
+
+    public static boolean includePlayerStorage() {
+        return Global.getSettings().getBoolean("resultsIncludePlayerStorage");
+    }
 }
