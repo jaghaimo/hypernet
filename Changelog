@@ -1,5 +1,6 @@
 * unreleased - 1.6.0
 - Add "Toggle All" button
+- Remove player storage from results
 
 * Thu Nov 12 2020 - 1.5.0
 - Rework small intel description for all intel types
