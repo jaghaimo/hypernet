@@ -64,15 +64,14 @@ public class HypernetBoard extends BaseIntelPlugin {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         Color bulletColor = getBulletColorForMode(mode);
         Color highlightColor = Misc.getHighlightColor();
-        info.addPara("HyperNET Board", getTitleColor(mode), 0);
-
+        info.addPara("Hyperspace Network", getTitleColor(mode), 0);
         int queriesPresent = queries.size();
         if (queriesPresent == 1) {
             info.addPara("Managing %s intel query.", 1f, bulletColor, highlightColor, "1");
         } else if (queriesPresent > 1) {
             info.addPara("Managing %s intel queries.", 1f, bulletColor, highlightColor, String.valueOf(queriesPresent));
         } else {
-            info.addPara("No intel queries present.", 1f, bulletColor);
+            info.addPara("No intel queries present.", bulletColor, 1f);
         }
         info.addPara("", 1f);
     }
