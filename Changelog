@@ -1,3 +1,6 @@
+* Fri Jan 8 2021 - 1.6.2
+- Do not refresh submarkets when displaying intel screen
+
 * Sat Dec 26 2020 - 1.6.1
 - Fix board description color
 
