@@ -15,7 +15,6 @@ import hypernet.filter.CargoStacksHasStack;
 import hypernet.filter.FleetMembersHasMember;
 import hypernet.filter.SubmarketFilter;
 import hypernet.helper.CollectionHelper;
-import hypernet.helper.MarketHelper;
 
 public abstract class SubmarketSubject extends IntelSubject {
 
@@ -36,7 +35,7 @@ public abstract class SubmarketSubject extends IntelSubject {
     @Override
     public boolean isAvailable() {
         SubmarketFilter filter = getFilter();
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filter);
         return !submarkets.isEmpty();
     }
@@ -61,7 +60,7 @@ public abstract class SubmarketSubject extends IntelSubject {
     }
 
     protected List<SubmarketAPI> findSubmarkets() {
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, getFilter());
         return submarkets;
     }

@@ -1,7 +1,6 @@
 package hypernet.helper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,10 +39,6 @@ public class MarketHelper {
 
     public static List<SubmarketAPI> getSubmarkets() {
         return getSubmarkets(getMarkets());
-    }
-
-    public static List<SubmarketAPI> getSubmarkets(MarketAPI market) {
-        return getSubmarkets(Arrays.asList(market));
     }
 
     public static List<SubmarketAPI> getSubmarkets(List<MarketAPI> markets) {

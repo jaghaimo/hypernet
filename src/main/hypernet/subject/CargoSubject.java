@@ -18,7 +18,6 @@ import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasCargoStack;
 import hypernet.filter.SubmarketIsAccessible;
 import hypernet.helper.CollectionHelper;
-import hypernet.helper.MarketHelper;
 
 public class CargoSubject extends SubmarketSubject {
 
@@ -34,7 +33,7 @@ public class CargoSubject extends SubmarketSubject {
     public boolean canAcquire() {
         List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasCargoStack(cargoStack),
                 new SubmarketIsAccessible(), new SubmarketCanAcquireCargoStack(cargoStack));
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filters);
         return !submarkets.isEmpty();
     }

@@ -16,7 +16,6 @@ import hypernet.filter.SubmarketFilter;
 import hypernet.filter.SubmarketHasFleetMember;
 import hypernet.filter.SubmarketIsAccessible;
 import hypernet.helper.CollectionHelper;
-import hypernet.helper.MarketHelper;
 
 public class ShipSubject extends SubmarketSubject {
 
@@ -32,7 +31,7 @@ public class ShipSubject extends SubmarketSubject {
     public boolean canAcquire() {
         List<SubmarketFilter> filters = Arrays.asList(new SubmarketHasFleetMember(ship),
                 new SubmarketCanAcquireFleetMember(ship), new SubmarketIsAccessible());
-        List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets(market);
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filters);
         return !submarkets.isEmpty();
     }
