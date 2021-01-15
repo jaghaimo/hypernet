@@ -1,5 +1,5 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/jaghaimo/hypernet/master/hypernet.version",
+    "masterVersionFile":"https://raw.githubusercontent.com/jaghaimo/hypernet/master/src/main/resources/hypernet.version",
     "modName":"Hyperspace Network",
     "modThreadId":19252,
     "modVersion":
