@@ -78,24 +78,19 @@ public class HypernetBoard extends BaseIntelPlugin {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        /*
-         * FIXME
-         *
-         * The following code is CORRECT although due to the bug in 0.9.1a it will not
-         * work with buttons. To be uncommented with next release.
-         */
-        // TooltipMakerAPI outer = panel.createUIElement(width, height, true);
-        // CustomPanelAPI inner = panel.createCustomPanel(width, height, null);
+        TooltipMakerAPI outer = panel.createUIElement(width, height, true);
+        float innerWidth = width - 10;
+        CustomPanelAPI inner = panel.createCustomPanel(innerWidth, height, null);
 
         float currentHeight = 0;
-        for (BoardRow row : getFreshBoardRows(panel, width)) {
+        for (BoardRow row : getFreshBoardRows(inner, innerWidth)) {
             row.render(currentHeight);
             currentHeight += row.getHeight();
         }
 
-        // inner.getPosition().setSize(width, currentHeight);
-        // outer.addCustom(inner, 0);
-        // panel.addUIElement(outer).inTL(0, 0);
+        inner.getPosition().setSize(innerWidth, currentHeight);
+        outer.addCustom(inner, 0);
+        panel.addUIElement(outer).inTL(0, 0);
     }
 
     @Override
